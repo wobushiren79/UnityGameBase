@@ -3,22 +3,21 @@ using UnityEditor;
 
 public abstract class BaseMVCController<M,V> : BaseMVC
 where M : BaseMVCModel, new()
-where V : BaseMVCView, new()
+where V : IBaseMVCView, new()
 {
     //模型
     private M mModel;
     //视图
     private V mView;
 
-    public BaseMVCController(BaseMonoBehaviour content)
+    public BaseMVCController(BaseMonoBehaviour content,V view)
     {
         SetContent(content);
         //添加相应模型
         mModel = new M();
         mModel.SetContent(mContent);
         //添加相应视图
-        mView = new V();
-        mView.SetContent(mContent);
+        mView = view;
     }
 
     /// <summary>
