@@ -3,7 +3,7 @@ using Mono.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 
-public class SQliteHandle : ScriptableObject
+public class SQliteHandle 
 {
     private readonly static string DB_PATH = "data source=" + Application.streamingAssetsPath + "/SQLiteDataBase/";
 
