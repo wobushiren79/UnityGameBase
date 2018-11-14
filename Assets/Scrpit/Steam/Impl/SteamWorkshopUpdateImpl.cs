@@ -32,7 +32,7 @@ public class SteamWorkshopUpdateImpl : ISteamWorkshopUpdate
     public SteamWorkshopUpdateImpl(BaseMonoBehaviour mContent)
     {
         //初始化appid
-        this.mAppId = new AppId_t(uint.Parse(CommonInfo.Steam_App_Id));
+        this.mAppId = new AppId_t(uint.Parse(ProjectConfigInfo.STEAM_APP_ID));
         this.mContent = mContent;
     }
 
@@ -112,7 +112,6 @@ public class SteamWorkshopUpdateImpl : ISteamWorkshopUpdate
     private void OnSubmitItemCallBack(SubmitItemUpdateResult_t itemResult, bool bIOFailure)
     {
         mIsComplete = true;
-        LogUtil.log("update:"+ (int)itemResult.m_eResult);
         if (bIOFailure || itemResult.m_eResult != EResult.k_EResultOK)
         {
             SteamUGC.DeleteItem(itemResult.m_nPublishedFileId);
