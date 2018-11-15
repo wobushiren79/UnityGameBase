@@ -113,8 +113,5 @@ public class AssetLoadUtil
         T obj = objRequest.asset as T;
         if (obj != null && callBack != null)
             callBack.LoadSuccess(obj);
-
     }
-
-  
 }
