@@ -104,8 +104,7 @@ public class SteamManager : MonoBehaviour {
         else
         {
             //初始化用户状态
-            //UserStatsHandleImpl userStats = new UserStatsHandleImpl();
-            //userStats.initUserStats();
+            SteamUserStatsHandle.UserStatsInit();
         }
 
 		s_EverInialized = true;
