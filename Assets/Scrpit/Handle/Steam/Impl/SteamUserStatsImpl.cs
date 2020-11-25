@@ -21,8 +21,8 @@ public class SteamUserStatsImpl : ISteamUserStats
     /// <param name="bIOFailure"></param>
     void OnUserStatsReceived(UserStatsReceived_t pCallback, bool bIOFailure)
     {
-        
     }
+
 
     /// <summary>
     /// 改变用户统计数据 继而完成成就
@@ -51,6 +51,20 @@ public class SteamUserStatsImpl : ISteamUserStats
             bool isUpdateStat = SteamUserStats.StoreStats();
         }
     }
+
+    /// <summary>
+    /// 直接激活成就
+    /// </summary>
+    /// <param name="pchName"></param>
+    public void UserCompleteAchievement(string pchName)
+    {
+        if (SteamManager.Initialized)
+        {
+            bool isSetAchievement = SteamUserStats.SetAchievement(pchName);
+            bool isUpdateStat = SteamUserStats.StoreStats();
+        }
+    }
+
 
     /// <summary>
     /// 充值所有统计数据

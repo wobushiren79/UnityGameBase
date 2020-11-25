@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class RadioGroupView : BaseMonoBehaviour, IRadioButtonCallBack
 {
+    //是否能取消选择想
+    public bool isCancelSelect = false;
     //按钮列表
     public List<RadioButtonView> listButton;
     private IRadioGroupCallBack mRGCallBack;
@@ -18,6 +20,31 @@ public class RadioGroupView : BaseMonoBehaviour, IRadioButtonCallBack
         foreach (RadioButtonView itemRB in listButton)
         {
             itemRB.SetCallBack(this);
+        }
+    }
+
+    public void SetPosition(int position, bool isCallBack)
+    {
+        if (listButton == null)
+            return;
+        if (position > listButton.Count)
+            return;
+        for (int i = 0; i < listButton.Count; i++)
+        {
+            RadioButtonView itemRB = listButton[i];
+            if (i == position)
+            {
+                itemRB.ChangeStates(RadioButtonView.RadioButtonStatus.Selected);
+                if (isCallBack)
+                {
+                    if (mRGCallBack != null)
+                        mRGCallBack.RadioButtonSelected(this,i, itemRB);
+                }
+            }
+            else
+            {
+                itemRB.ChangeStates(RadioButtonView.RadioButtonStatus.Unselected);
+            }
         }
     }
 
@@ -48,7 +75,7 @@ public class RadioGroupView : BaseMonoBehaviour, IRadioButtonCallBack
         this.mRGCallBack = callback;
     }
 
-    public void RadioButtonSelected(RadioButtonView view)
+    public void RadioButtonSelected(RadioButtonView view, RadioButtonView.RadioButtonStatus buttonStates)
     {
         if (CheckUtil.ListIsNull(listButton))
         {
@@ -59,15 +86,18 @@ public class RadioGroupView : BaseMonoBehaviour, IRadioButtonCallBack
             RadioButtonView itemRB = listButton[i];
             if (itemRB.Equals(view))
             {
-                itemRB.ChangeStates(RadioButtonView.RadioButtonStates.Selected);
+                if (!isCancelSelect)
+                {
+                    itemRB.ChangeStates(RadioButtonView.RadioButtonStatus.Selected);
+                }
                 if (mRGCallBack != null)
-                    mRGCallBack.RadioButtonSelected(i, itemRB);
+                    mRGCallBack.RadioButtonSelected(this,i, itemRB);
             }
             else
             {
-                itemRB.ChangeStates(RadioButtonView.RadioButtonStates.Unselected);
+                itemRB.ChangeStates(RadioButtonView.RadioButtonStatus.Unselected);
                 if (mRGCallBack != null)
-                    mRGCallBack.RadioButtonUnSelected(i, itemRB);
+                    mRGCallBack.RadioButtonUnSelected(this,i, itemRB);
             }
         }
     }

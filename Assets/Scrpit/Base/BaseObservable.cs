@@ -52,7 +52,8 @@ public class BaseObservable<T> : BaseMonoBehaviour
     {
         if (CheckUtil.ListIsNull(mObserverList) || observer == null)
             return;
-        mObserverList.Remove(observer);
+        if (mObserverList.Contains(observer))
+            mObserverList.Remove(observer);
     }
 
     /// <summary>
@@ -70,17 +71,33 @@ public class BaseObservable<T> : BaseMonoBehaviour
     }
 
     /// <summary>
+    /// 移除所有观察者
+    /// </summary>
+    public void RemoveAllObserver()
+    {
+        if (CheckUtil.ListIsNull(mObserverList))
+            return;
+        mObserverList.Clear();
+    }
+
+    /// <summary>
     /// 通知所有观察者
     /// </summary>
     /// <param name="type"></param>
     /// <param name="objs"></param>
-    public void NotifyAllObserver(int type, params Object[] objs)
+    public void NotifyAllObserver(int type, params System.Object[] objs)
     {
         if (CheckUtil.ListIsNull(mObserverList))
             return;
         foreach (T item in mObserverList)
         {
-            item.ObserbableUpdate(type, objs);
+            try
+            {
+                item.ObserbableUpdate(this, type, objs);
+            } catch
+            {
+
+            }
         }
     }
 
@@ -90,7 +107,7 @@ public class BaseObservable<T> : BaseMonoBehaviour
     /// <param name="observer"></param>
     /// <param name="type"></param>
     /// <param name="objs"></param>
-    public void NotifyObserver(T observer, int type, params Object[] objs)
+    public void NotifyObserver(T observer, int type, params System.Object[] objs)
     {
         if (CheckUtil.ListIsNull(mObserverList))
             return;
@@ -98,7 +115,7 @@ public class BaseObservable<T> : BaseMonoBehaviour
         {
             if (item.Equals(observer))
             {
-                item.ObserbableUpdate(type, objs);
+                item.ObserbableUpdate(this, type, objs);
             }
         }
     }

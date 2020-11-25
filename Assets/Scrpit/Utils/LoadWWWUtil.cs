@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEditor;
 using System.Collections;
+using UnityEngine.Networking;
 
 public class LoadWWWUtil 
 {
@@ -17,6 +18,11 @@ public class LoadWWWUtil
     //    WWW www = new WWW(httpPath);
     //    return www;
     //}
+    public static UnityWebRequest SyncLoadData(string httpPath)
+    {
+        UnityWebRequest webRequest = new UnityWebRequest(httpPath);
+        return webRequest;
+    }
 
     /// <summary>
     /// 异步-WWW加载
@@ -30,6 +36,14 @@ public class LoadWWWUtil
     //    if (callBack != null)
     //        callBack.LoadSuccess(www);
     //}
+    public static IEnumerator AsyncLoadData(string resPath, ILoadCallBack<UnityWebRequest> callBack)
+    {
+        UnityWebRequest webRequest = new UnityWebRequest(resPath);
+        yield return webRequest;
+        if (callBack != null)
+            callBack.LoadSuccess(webRequest);
+    }
+
 
     /// <summary>
     /// 异步-WWW加载 获取Sprite

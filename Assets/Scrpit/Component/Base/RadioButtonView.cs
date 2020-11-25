@@ -20,16 +20,17 @@ public class RadioButtonView : BaseMonoBehaviour
 
     private IRadioButtonCallBack mRBCallBack;
 
-    public enum RadioButtonStates
+    public enum RadioButtonStatus
     {
         Selected,//选中状态
         Unselected,//未选中状态
     }
 
-    public RadioButtonStates states = RadioButtonStates.Selected;
+    public RadioButtonStatus status = RadioButtonStatus.Selected;
 
     private void Start()
     {
+        ChangeStates(status);
         rbButton.onClick.AddListener(RadioButtonSelected);
     }
 
@@ -38,8 +39,11 @@ public class RadioButtonView : BaseMonoBehaviour
     /// </summary>
     public void RadioButtonSelected()
     {
+        ChangeStates();
         if (mRBCallBack != null)
-            mRBCallBack.RadioButtonSelected(this);
+        {
+            mRBCallBack.RadioButtonSelected(this, status);
+        }
     }
 
     /// <summary>
@@ -51,15 +55,19 @@ public class RadioButtonView : BaseMonoBehaviour
         this.mRBCallBack = callback;
     }
 
+
     /// <summary>
     /// 改变状态
     /// </summary>
-    /// <param name="states"></param>
-    public void ChangeStates(RadioButtonStates states)
+    /// <param name="status"></param>
+    public void ChangeStates(RadioButtonStatus status)
     {
-        switch (states)
+        if (rbButton.enabled == false)
+            return;
+        this.status = status;
+        switch (status)
         {
-            case RadioButtonStates.Selected:
+            case RadioButtonStatus.Selected:
                 if (rbImage) {
                     rbImage.sprite = spSelected;
                     rbImage.color = colorIVSelected;
@@ -67,7 +75,7 @@ public class RadioButtonView : BaseMonoBehaviour
                 if (rbText)
                     rbText.color = colorTVSelected;
                 break;
-            case RadioButtonStates.Unselected:
+            case RadioButtonStatus.Unselected:
                 if (rbImage) {
                     rbImage.sprite = spUnselected;
                     rbImage.color = colorIVUnselected;
@@ -79,4 +87,32 @@ public class RadioButtonView : BaseMonoBehaviour
     }
 
 
+    public void ChangeStates()
+    {
+        if (rbButton.enabled == false)
+            return;
+        if (status == RadioButtonStatus.Selected)
+        {
+            status = RadioButtonStatus.Unselected;
+        }
+        else
+        {
+            status = RadioButtonStatus.Selected;
+        }
+        ChangeStates(status);
+    }
+
+    /// <summary>
+    /// 设置是否开启点击
+    /// </summary>
+    /// <param name="enabled"></param>
+    public void SetEnabled(bool enabled)
+    {
+        rbButton.enabled = enabled;
+    }
+
+    public bool GetEnabled()
+    {
+        return rbButton.enabled;
+    }
 }

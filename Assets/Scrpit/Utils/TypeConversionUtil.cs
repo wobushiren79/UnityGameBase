@@ -17,6 +17,17 @@ public class TypeConversionUtil
     }
 
     /// <summary>
+    /// 自定义位置转为系统位置
+    /// </summary>
+    /// <param name="vector3Bean"></param>
+    /// <returns></returns>
+    public static Vector3 Vector3BeanToVector3(Vector3Bean vector3Bean)
+    {
+        Vector3 vector3 = new Vector3(vector3Bean.x, vector3Bean.y, vector3Bean.z);
+        return vector3;
+    }
+
+    /// <summary>
     /// Vector3 转化为 Vector2
     /// </summary>
     /// <param name="listVector3"></param>
@@ -29,6 +40,21 @@ public class TypeConversionUtil
             listVector2.Add(new Vector2(item.x, item.y));
         }
         return listVector2;
+    }
+
+    /// <summary>
+    /// Vector3 转化为 Vector2
+    /// </summary>
+    /// <param name="listVector3"></param>
+    /// <returns></returns>
+    public static List<Vector3Bean> ListV3ToListV3Bean(List<Vector3> listVector3)
+    {
+        List<Vector3Bean> listVector3Bean = new List<Vector3Bean>();
+        foreach (Vector3 item in listVector3)
+        {
+            listVector3Bean.Add(new Vector3Bean(item));
+        }
+        return listVector3Bean;
     }
 
     /// <summary>
@@ -131,5 +157,176 @@ public class TypeConversionUtil
             data += list[i].ToString();
         }
         return data;
+    }
+
+    /// <summary>
+    /// Color转换ColorBean
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
+    public static ColorBean ColorToColorBean(Color color)
+    {
+        ColorBean colorBean = new ColorBean(color.r, color.g, color.b, color.a);
+        return colorBean;
+    }
+
+
+    /// <summary>
+    ///  图标字典转List
+    /// </summary>
+    /// <param name="map"></param>
+    /// <returns></returns>
+    public static List<IconBean> IconBeanDictionaryToList(IconBeanDictionary map)
+    {
+        List<IconBean> listData = new List<IconBean>();
+        foreach (string key in map.Keys)
+        {
+            IconBean iconBean = new IconBean
+            {
+                key = key,
+                value = map[key]
+            };
+            listData.Add(iconBean);
+        }
+        return listData;
+    }
+
+    /// <summary>
+    /// List<string> 强转 List<long>
+    /// </summary>
+    /// <param name="listStr"></param>
+    /// <returns></returns>
+    public static List<long> ListStrToListLong(List<string> listStr)
+    {
+        if (listStr == null)
+            return null;
+        List<long> listData = new List<long>();
+        foreach (string itemStr in listStr)
+        {
+            if (long.TryParse(itemStr, out long itemLong))
+            {
+                listData.Add(itemLong);
+            }
+        }
+        return listData;
+    }
+
+    /// <summary>
+    ///  string[] 强转 long[]
+    /// </summary>
+    /// <param name="arrayStr"></param>
+    /// <returns></returns>
+    public static long[] ArrayStrToArrayLong(string[] arrayStr)
+    {
+        if (arrayStr == null)
+            return null;
+        long[] listData = new long[arrayStr.Length];
+        for (int i = 0; i < arrayStr.Length; i++)
+        {
+            string itemStr = arrayStr[i];
+            if (long.TryParse(itemStr, out long itemLong))
+            {
+                listData[i] = itemLong;
+            }
+        }
+        return listData;
+    }
+
+    /// <summary>
+    ///  string[] 强转 long[]
+    /// </summary>
+    /// <param name="arrayStr"></param>
+    /// <returns></returns>
+    public static int[] ArrayStrToArrayInt(string[] arrayStr)
+    {
+        if (arrayStr == null)
+            return null;
+        int[] listData = new int[arrayStr.Length];
+        for (int i = 0; i < arrayStr.Length; i++)
+        {
+            string itemStr = arrayStr[i];
+            if (int.TryParse(itemStr, out int itemInt))
+            {
+                listData[i] = itemInt;
+            }
+        }
+        return listData;
+    }
+
+    /// <summary>
+    ///  string[] 强转 float[]
+    /// </summary>
+    /// <param name="arrayStr"></param>
+    /// <returns></returns>
+    public static float[] ArrayStrToArrayFloat(string[] arrayStr)
+    {
+        if (arrayStr == null)
+            return null;
+        float[] listData = new float[arrayStr.Length];
+        for (int i = 0; i < arrayStr.Length; i++)
+        {
+            string itemStr = arrayStr[i];
+            if (float.TryParse(itemStr, out float itemFloat))
+            {
+                listData[i] = itemFloat;
+            }
+        }
+        return listData;
+    }
+
+    /// <summary>
+    /// 数字转中文
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    public static string NumberToChinese(int number)
+    {
+        if (number >= 10 || number < 0)
+        {
+            LogUtil.LogError("阿拉伯数字转中文数字失败");
+            return "";
+        }
+        string[] chineseNumberList = new string[10] { "〇", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+        return chineseNumberList[number];
+    }
+
+    /// <summary>
+    /// string 转 INT[]
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public static int[] StringToInt32(string data)
+    {
+        char[] charList = data.ToCharArray();
+        int[] intList = new int[charList.Length];
+        for (int i = 0; i < charList.Length; i++)
+        {
+            char itemChar = charList[i];
+            intList[i] = Convert.ToInt32(itemChar);
+        }
+        return intList;
+    }
+
+    /// <summary>
+    /// INT[]  转 string
+    /// </summary>
+    /// <param name="listInt"></param>
+    /// <returns></returns>
+    public static string Int32ToString(int[] listInt)
+    {
+        char[] charList = new char[listInt.Length];
+        for (int i = 0; i < listInt.Length; i++)
+        {
+            int itemInt = listInt[i];
+            try
+            {
+                charList[i] = Convert.ToChar(itemInt);
+            }
+            catch
+            {
+                
+            }
+        }
+        return new string(charList);
     }
 }
