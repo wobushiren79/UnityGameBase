@@ -76,22 +76,6 @@ public class BaseUIComponent : BaseMonoBehaviour
     /// </summary>
     public void AutoLinkUI()
     {
-        Type trueType = this.GetType();
-        FieldInfo[] fields = trueType.GetFields();
-        for (int i=0;i< fields.Length;i++)
-        {
-            var field = fields[i];
-            if (!field.Name.Contains("ui_"))
-            {
-                continue;
-            }
-            Component tmpCom = CptUtil.GetCptInChildrenByName(this.gameObject, field.Name.Replace("ui_", ""), field.FieldType,true);
-            if (tmpCom == null)
-            {
-                //Debug.LogWarning("window " + trueType.Name + ",can not find：" + field.Name.Replace("ui_", ""));
-                continue;
-            }
-            field.SetValue(this, tmpCom);
-        }
+        ReflexUtil.AutoLinkDataForChild(this, "ui_");
     }
 }
