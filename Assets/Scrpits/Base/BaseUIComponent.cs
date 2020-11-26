@@ -21,6 +21,8 @@ public class BaseUIComponent : BaseMonoBehaviour
         if (uiAnimator == null)
             uiAnimator = GetComponent<Animator>();
         AutoLinkUI();
+        AutoLinkHandler();
+        AutoLinkManager();
     }
     
 
@@ -77,5 +79,15 @@ public class BaseUIComponent : BaseMonoBehaviour
     public void AutoLinkUI()
     {
         ReflexUtil.AutoLinkDataForChild(this, "ui_");
+    }
+
+    public void AutoLinkHandler()
+    {
+        ReflexUtil.AutoLinkData(this, "handler_");
+    }
+
+    public void AutoLinkManager()
+    {
+        ReflexUtil.AutoLinkData(this, "manager_");
     }
 }
