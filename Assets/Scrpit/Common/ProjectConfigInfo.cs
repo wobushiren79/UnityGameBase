@@ -6,7 +6,7 @@ public class ProjectConfigInfo
     /// <summary>
     /// 游戏版本
     /// </summary>
-    public readonly static string GAME_VERSION = "0.3.4";
+    public readonly static string GAME_VERSION = "0.0.1";
 
     /// <summary>
     /// 是否打开日志输出
@@ -26,10 +26,6 @@ public class ProjectConfigInfo
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public readonly static string DATA_BASE_INFO_NAME = "ILDB.db";
+    public readonly static string DATA_BASE_INFO_NAME = "GameDB.db";
 
-    /// <summary>
-    /// 数据单词刷新个数
-    /// </summary>
-    public readonly static int ITEM_REFRESH_NUMBER = 10;
 }

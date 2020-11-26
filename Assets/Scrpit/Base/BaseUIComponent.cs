@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class BaseUIComponent : BaseMonoBehaviour 
@@ -11,15 +13,16 @@ public class BaseUIComponent : BaseMonoBehaviour
     //备注数据
     public string remarkData;
 
-    protected DialogManager dialogManager;
+
     public virtual void Awake()
     {
-        dialogManager = Find<DialogManager>(ImportantTypeEnum.DialogManager);
         if (uiManager == null)
             uiManager = GetComponentInParent<BaseUIManager>();
         if (uiAnimator == null)
             uiAnimator = GetComponent<Animator>();
+        AutoLinkUI();
     }
+    
 
     /// <summary>
     /// 开启UI
@@ -31,7 +34,6 @@ public class BaseUIComponent : BaseMonoBehaviour
         this.gameObject.SetActive(true);
         if (uiAnimator != null)
             uiAnimator.SetInteger("UIStates", 1);
-        dialogManager.CloseAllDialog();
     }
 
     /// <summary>
@@ -67,5 +69,29 @@ public class BaseUIComponent : BaseMonoBehaviour
     public T GetUIManager<T>() where T : BaseUIManager
     {
         return uiManager as T;
+    }
+
+    /// <summary>
+    /// 通过反射链接UI控件
+    /// </summary>
+    public void AutoLinkUI()
+    {
+        Type trueType = this.GetType();
+        FieldInfo[] fields = trueType.GetFields();
+        for (int i=0;i< fields.Length;i++)
+        {
+            var field = fields[i];
+            if (!field.Name.Contains("ui_"))
+            {
+                continue;
+            }
+            Component tmpCom = CptUtil.GetCptInChildrenByName(this.gameObject, field.Name.Replace("ui_", ""), field.FieldType,true);
+            if (tmpCom == null)
+            {
+                //Debug.LogWarning("window " + trueType.Name + ",can not find：" + field.Name.Replace("ui_", ""));
+                continue;
+            }
+            field.SetValue(this, tmpCom);
+        }
     }
 }

@@ -51,7 +51,7 @@ public class UITextController : BaseMVCController<UITextModel,IUITextView>
         }
         catch (Exception e)
         {
-            LogUtil.LogError("没有找到ID为"+id+"的UI内容");
+            LogUtil.LogError("没有找到ID为"+id+"的UI内容:"+ e.Message);
         }
         if (itemData == null)
             return null;

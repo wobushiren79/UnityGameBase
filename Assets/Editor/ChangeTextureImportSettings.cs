@@ -34,36 +34,36 @@ public class ChangeTextureImportSettingsUnity3 : ScriptableObject
 
 
 
-    [MenuItem("Custom/Texture/Change Texture Format/Auto Compressed")]
+    //[MenuItem("Custom/Texture/Change Texture Format/Auto Compressed")]
 
-    static void ChangeTextureFormat_AutoCompressed()
-    {
+    //static void ChangeTextureFormat_AutoCompressed()
+    //{
 
-        SelectedChangeTextureFormatSettings(TextureImporterFormat.AutomaticCompressed);
+    //    SelectedChangeTextureFormatSettings(TextureImporterFormat.AutomaticCompressed);
 
-    }
-
-
-
-    [MenuItem("Custom/Texture/Change Texture Format/Auto 16bit")]
-
-    static void ChangeTextureFormat_Auto16Bit()
-    {
-
-        SelectedChangeTextureFormatSettings(TextureImporterFormat.Automatic16bit);
-
-    }
+    //}
 
 
 
-    [MenuItem("Custom/Texture/Change Texture Format/Auto Truecolor")]
+    //[MenuItem("Custom/Texture/Change Texture Format/Auto 16bit")]
 
-    static void ChangeTextureFormat_AutoTruecolor()
-    {
+    //static void ChangeTextureFormat_Auto16Bit()
+    //{
 
-        SelectedChangeTextureFormatSettings(TextureImporterFormat.AutomaticTruecolor);
+    //    SelectedChangeTextureFormatSettings(TextureImporterFormat.Automatic16bit);
 
-    }
+    //}
+
+
+
+    //[MenuItem("Custom/Texture/Change Texture Format/Auto Truecolor")]
+
+    //static void ChangeTextureFormat_AutoTruecolor()
+    //{
+
+    //    SelectedChangeTextureFormatSettings(TextureImporterFormat.AutomaticTruecolor);
+
+    //}
 
 
 
@@ -388,7 +388,7 @@ public class ChangeTextureImportSettingsUnity3 : ScriptableObject
 
         SelectedChangeIsReadable(false);
 
-    }    //Unity3D教程手册：www.unitymanual.com  
+    } 
 
 
 
@@ -474,7 +474,6 @@ public class ChangeTextureImportSettingsUnity3 : ScriptableObject
 
     }
 
-    //Unity3D教程手册：www.unitymanual.com  
 
     static void SelectedChangeMaxTextureSize(int size)
     {
@@ -520,7 +519,7 @@ public class ChangeTextureImportSettingsUnity3 : ScriptableObject
 
             TextureImporter textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
 
-            textureImporter.textureFormat = newFormat;
+            // textureImporter.textureFormat = newFormat;
 
             AssetDatabase.ImportAsset(path);
 

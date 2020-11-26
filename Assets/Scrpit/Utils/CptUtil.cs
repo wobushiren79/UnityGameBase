@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using System;
 
 public class CptUtil
 {
@@ -102,12 +103,29 @@ public class CptUtil
     /// <returns></returns>
     public static T GetCptInChildrenByName<T>(GameObject obj,string name) where T : Component
     {
-       T[] cptList= obj.GetComponentsInChildren<T>();
-        foreach (T item in cptList)
+        T[] cptList= obj.GetComponentsInChildren<T>();
+        for (int i = 0; i < cptList.Length; i++)
         {
+            T item = cptList[i];
             if (item.name.Equals(name))
             {
                 return item;
+            }
+        }
+        return null;
+    }
+
+    public static Component GetCptInChildrenByName(GameObject obj,  string name, Type type, bool includeInactive)
+    {
+        Component[] targets = obj.GetComponentsInChildren(type, includeInactive);
+        if (targets.Length > 0)
+        {
+            for (int i = 0; i < targets.Length; i++)
+            {
+                if (targets[i].name == name)
+                {
+                    return targets[i];
+                }
             }
         }
         return null;
