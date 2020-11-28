@@ -23,5 +23,18 @@ public class SQliteInit : BaseMonoBehaviour
             //拷贝至规定的地方
             File.WriteAllBytes(appDBPath, loadDB.bytes);
         }
+        else if (Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            string appDBPath = Application.persistentDataPath + "/" + ProjectConfigInfo.DATA_BASE_INFO_NAME;
+            if (File.Exists(appDBPath))
+            {
+                File.Delete(appDBPath);
+            }
+#pragma warning disable CS0618 // 类型或成员已过时
+            WWW loadDB = new WWW("file://" + Application.streamingAssetsPath + "/SQLiteDataBase/" + ProjectConfigInfo.DATA_BASE_INFO_NAME);
+#pragma warning restore CS0618 // 类型或成员已过时
+            while (!loadDB.isDone) { }
+            File.WriteAllBytes("file://" + appDBPath, loadDB.bytes);
+        }
     }
 }
