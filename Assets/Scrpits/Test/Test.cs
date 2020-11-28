@@ -6,7 +6,7 @@ public class Test : BaseUIManager {
 
     private void Start()
     {
-        OpenUIByName("TestUI");
+   
     }
 
 }

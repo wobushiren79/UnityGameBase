@@ -80,14 +80,4 @@ public class BaseUIComponent : BaseMonoBehaviour
     {
         ReflexUtil.AutoLinkDataForChild(this, "ui_");
     }
-
-    public void AutoLinkHandler()
-    {
-        ReflexUtil.AutoLinkData(this, "handler_");
-    }
-
-    public void AutoLinkManager()
-    {
-        ReflexUtil.AutoLinkData(this, "manager_");
-    }
 }
