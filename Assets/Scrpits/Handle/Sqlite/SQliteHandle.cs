@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SQliteHandle 
+public class SQLiteHandle 
 {
     private static string DB_PATH = "";
 
