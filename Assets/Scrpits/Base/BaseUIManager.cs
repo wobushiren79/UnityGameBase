@@ -14,7 +14,7 @@ public class BaseUIManager : BaseMonoBehaviour
     /// <returns></returns>
     public BaseUIComponent GetOpenUI()
     {
-        for (int i=0;i< uiList.Count;i++)
+        for (int i = 0; i < uiList.Count; i++)
         {
             BaseUIComponent itemUI = uiList[i];
             if (itemUI.gameObject.activeSelf)
@@ -54,7 +54,7 @@ public class BaseUIManager : BaseMonoBehaviour
         for (int i = 0; i < uiList.Count; i++)
         {
             BaseUIComponent itemUI = uiList[i];
-            if (itemUI.name.Equals(uiName))
+            if (itemUI.name.Contains(uiName))
             {
                 return itemUI;
             }
@@ -85,7 +85,7 @@ public class BaseUIManager : BaseMonoBehaviour
         for (int i = 0; i < uiList.Count; i++)
         {
             BaseUIComponent itemUI = uiList[i];
-            if (itemUI.name.Equals(uiName))
+            if (itemUI.name.Contains(uiName))
             {
                 tempUIList.Add(itemUI);
             }
@@ -106,7 +106,7 @@ public class BaseUIManager : BaseMonoBehaviour
         for (int i = 0; i < uiList.Count; i++)
         {
             BaseUIComponent itemUI = uiList[i];
-            if (itemUI.name.Equals(uiName))
+            if (itemUI.name.Contains(uiName))
             {
                 itemUI.OpenUI();
                 hasData = true;
@@ -114,7 +114,7 @@ public class BaseUIManager : BaseMonoBehaviour
         }
         if (!hasData)
         {
-            BaseUIComponent uiModel = LoadResourcesUtil.SyncLoadData<BaseUIComponent>("UI/"+ uiName);
+            BaseUIComponent uiModel = LoadResourcesUtil.SyncLoadData<BaseUIComponent>("UI/" + uiName);
             if (uiModel)
             {
                 GameObject objUIComponent = Instantiate(gameObject, uiModel.gameObject);
@@ -123,7 +123,7 @@ public class BaseUIManager : BaseMonoBehaviour
             }
             else
             {
-                LogUtil.LogError("没有找到指定UI："+ "Resources/UI/" + uiName);
+                LogUtil.LogError("没有找到指定UI：" + "Resources/UI/" + uiName);
             }
         }
         return uiComponent;
@@ -139,6 +139,7 @@ public class BaseUIManager : BaseMonoBehaviour
         OpenUIByName(uiName);
     }
 
+
     /// <summary>
     /// 通过UI的名字关闭UI
     /// </summary>
@@ -150,7 +151,7 @@ public class BaseUIManager : BaseMonoBehaviour
         for (int i = 0; i < uiList.Count; i++)
         {
             BaseUIComponent itemUI = uiList[i];
-            if (itemUI.name.Equals(uiName))
+            if (itemUI.name.Contains(uiName))
             {
                 itemUI.CloseUI();
             }
@@ -182,7 +183,7 @@ public class BaseUIManager : BaseMonoBehaviour
         for (int i = 0; i < uiList.Count; i++)
         {
             BaseUIComponent itemUI = uiList[i];
-            if (!itemUI.name.Equals(uiName))
+            if (!itemUI.name.Contains(uiName))
             {
                 if (itemUI.gameObject.activeSelf)
                     itemUI.CloseUI();
@@ -193,7 +194,7 @@ public class BaseUIManager : BaseMonoBehaviour
 
     public BaseUIComponent OpenUIAndCloseOther(UIEnum ui)
     {
-       return OpenUIAndCloseOtherByName(EnumUtil.GetEnumName(ui));
+        return OpenUIAndCloseOtherByName(EnumUtil.GetEnumName(ui));
     }
 
     /// <summary>
@@ -247,7 +248,7 @@ public class BaseUIManager : BaseMonoBehaviour
         for (int i = 0; i < uiList.Count; i++)
         {
             BaseUIComponent itemUI = uiList[i];
-            if (itemUI.name.Equals(uiName))
+            if (itemUI.name.Contains(uiName))
             {
                 itemUI.RefreshUI();
             }
