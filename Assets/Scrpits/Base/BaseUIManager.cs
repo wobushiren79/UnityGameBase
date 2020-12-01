@@ -139,7 +139,6 @@ public class BaseUIManager : BaseMonoBehaviour
         OpenUIByName(uiName);
     }
 
-
     /// <summary>
     /// 通过UI的名字关闭UI
     /// </summary>
