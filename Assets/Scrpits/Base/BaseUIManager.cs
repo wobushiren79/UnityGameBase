@@ -63,6 +63,16 @@ public class BaseUIManager : BaseMonoBehaviour
     }
 
     /// <summary>
+    /// 获取UI
+    /// </summary>
+    /// <param name="uiEnum"></param>
+    /// <returns></returns>
+    public BaseUIComponent GetUI(UIEnum uiEnum)
+    {
+        return GetUIByName(EnumUtil.GetEnumName(uiEnum));
+    }
+
+    /// <summary>
     /// 根据UI的名字获取UI列表
     /// </summary>
     /// <param name="uiName"></param>
@@ -128,7 +138,6 @@ public class BaseUIManager : BaseMonoBehaviour
         string uiName = EnumUtil.GetEnumName(uiEnum);
         OpenUIByName(uiName);
     }
-
 
     /// <summary>
     /// 通过UI的名字关闭UI
