@@ -105,9 +105,8 @@ public class BaseMonoBehaviour : MonoBehaviour
         }
     }
 
-
     /// <summary>
-    /// 通过反射链接数据
+    /// 通过反射获取处理类
     /// </summary>
     public void AutoLinkHandler()
     {
@@ -115,10 +114,18 @@ public class BaseMonoBehaviour : MonoBehaviour
     }
 
     /// <summary>
-    /// 通过反射链接数据
+    /// 通过反射获取管理类
     /// </summary>
     public void AutoLinkManager()
     {
         ReflexUtil.AutoLinkData(this, "manager_");
+    }
+
+    /// <summary>
+    /// 通过反射链接UI控件
+    /// </summary>
+    public void AutoLinkUI()
+    {
+        ReflexUtil.AutoLinkDataForChild(this, "ui_");
     }
 }

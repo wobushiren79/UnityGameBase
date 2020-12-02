@@ -13,7 +13,6 @@ public class BaseUIComponent : BaseMonoBehaviour
     //备注数据
     public string remarkData;
 
-
     public virtual void Awake()
     {
         if (uiManager == null)
@@ -25,7 +24,6 @@ public class BaseUIComponent : BaseMonoBehaviour
         AutoLinkManager();
     }
     
-
     /// <summary>
     /// 开启UI
     /// </summary>
@@ -73,11 +71,4 @@ public class BaseUIComponent : BaseMonoBehaviour
         return uiManager as T;
     }
 
-    /// <summary>
-    /// 通过反射链接UI控件
-    /// </summary>
-    public void AutoLinkUI()
-    {
-        ReflexUtil.AutoLinkDataForChild(this, "ui_");
-    }
 }
