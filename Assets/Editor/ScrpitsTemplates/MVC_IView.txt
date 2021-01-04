@@ -1,0 +1,12 @@
+/*
+* FileName: #SCRIPTNAME# 
+* Author: #Author# 
+* CreateTime: #CreateTime# 
+*/
+
+using UnityEngine;
+
+public class #SCRIPTNAME# : BaseMonoBehaviour
+{
+
+}
