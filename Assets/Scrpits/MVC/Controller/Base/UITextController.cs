@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using System;
 
-public class UITextController : BaseMVCController<UITextModel,IUITextView>
+public class UITextController : BaseMVCController<UITextModel, IUITextView>
 {
     private Dictionary<long, UITextBean> mMapData;
 
@@ -44,17 +44,18 @@ public class UITextController : BaseMVCController<UITextModel,IUITextView>
     {
         if (mMapData == null)
             return null;
-        UITextBean itemData=null;
+        UITextBean itemData = null;
         try
         {
-             itemData = mMapData[id];
+            itemData = mMapData[id];
         }
         catch (Exception e)
         {
-            LogUtil.LogError("没有找到ID为"+id+"的UI内容:"+ e.Message);
+            LogUtil.LogError("没有找到ID为" + id + "的UI内容:" + e.Message);
         }
         if (itemData == null)
             return null;
         return itemData.content;
     }
+
 }

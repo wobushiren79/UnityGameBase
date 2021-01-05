@@ -4,17 +4,15 @@ using System.Collections.Generic;
 
 public class BaseDataModel : BaseMVCModel
 {
-    protected BaseDataService baseDataService;
+    protected BaseDataService serviceBaseData;
 
     public override void InitData()
     {
-        baseDataService = new BaseDataService();
+        serviceBaseData = new BaseDataService();
     }
 
     public List<BaseDataBean> GetAllBaseData()
     {
-        return baseDataService.QueryAllData();
+        return serviceBaseData.QueryAllData();
     }
-
-
 }

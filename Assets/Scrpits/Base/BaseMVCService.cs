@@ -87,7 +87,14 @@ public class BaseMVCService
     /// <returns></returns>
     public List<T> BaseQueryData<T>(string leftId, string key, string value)
     {
-        return BaseQueryData<T>(leftId, key, "=", value);
+        if (CheckUtil.StringIsNull(leftId) || CheckUtil.StringIsNull(tableNameForLeft))
+        {
+            return BaseQueryData<T>(key, value);
+        }
+        else
+        {
+            return BaseQueryData<T>(leftId, key, "=", value);
+        }
     }
 
     public List<T> BaseQueryData<T>(string leftId, string key, string operation, string value)
@@ -184,7 +191,14 @@ public class BaseMVCService
         bool isDeleteAll = true;
         if (BaseDeleteData(tableNameForMain, mainName, value))
         {
-            isDeleteAll = BaseDeleteData(tableNameForLeft, leftName, value);
+            if (CheckUtil.StringIsNull(tableNameForLeft))
+            {
+                isDeleteAll = true;
+            }
+            else
+            {
+                isDeleteAll = BaseDeleteData(tableNameForLeft, leftName, value);
+            }
         }
         else
             isDeleteAll = false;

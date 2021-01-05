@@ -23,7 +23,7 @@ public class GameConfigController : BaseMVCController<GameConfigModel, IGameConf
             GetView().SetGameConfigFail();
             return;
         } 
-        GetModel().SaveGameConfigData(configBean);
+        GetModel().SetGameConfigData(configBean);
         GetView().SetGameConfigSuccess(configBean);
     }
 

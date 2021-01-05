@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class UITextModel : BaseMVCModel
 {
-    private UITextService mUITextService;
+    protected UITextService serviceUIText;
 
     public override void InitData()
     {
-        mUITextService = new UITextService();
+        serviceUIText = new UITextService();
     }
 
     /// <summary>
@@ -17,7 +17,7 @@ public class UITextModel : BaseMVCModel
     /// <returns></returns>
     public List<UITextBean> GetAllData()
     {
-        List<UITextBean> listData = mUITextService.QueryAllData();
+        List<UITextBean> listData = serviceUIText.QueryAllData();
         return listData;
     }
 

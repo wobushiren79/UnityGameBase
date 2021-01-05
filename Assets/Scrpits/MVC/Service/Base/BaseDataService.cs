@@ -9,9 +9,29 @@ public class BaseDataService : BaseMVCService
 
     }
 
+    /// <summary>
+    /// 查询所有数据
+    /// </summary>
+    /// <returns></returns>
     public List<BaseDataBean> QueryAllData()
     {
         List<BaseDataBean> listData = BaseQueryAllData<BaseDataBean>();
-        return listData; 
+        return listData;
+    }
+
+    /// <summary>
+    /// 更新数据
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public bool UpdateData(BaseDataBean data)
+    {
+        bool deleteState = BaseDeleteDataById(data.id);
+        if (deleteState)
+        {
+            bool insertSuccess = BaseInsertData(tableNameForMain, data);
+            return insertSuccess;
+        }
+        return false;
     }
 }

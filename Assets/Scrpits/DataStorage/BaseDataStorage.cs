@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class BaseDataStorageImpl<T>
+public abstract class BaseDataStorage<T>
 {
     //数据保存路径
     protected string dataStoragePath;
@@ -9,7 +9,7 @@ public abstract class BaseDataStorageImpl<T>
     /// <summary>
     /// 初始化参数
     /// </summary>
-    public BaseDataStorageImpl()
+    public BaseDataStorage()
     {
         dataStoragePath = Application.persistentDataPath;
     }

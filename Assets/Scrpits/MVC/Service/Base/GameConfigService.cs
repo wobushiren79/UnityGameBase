@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-public class GameConfigService : BaseDataStorageImpl<GameConfigBean>
+public class GameConfigService : BaseDataStorage<GameConfigBean>
 {
-    private readonly string mSaveFileName;
+    protected readonly string saveFileName;
 
     public GameConfigService()
     {
-        mSaveFileName = "GameConfig";
+        saveFileName = "GameConfig";
     }
 
     /// <summary>
@@ -16,7 +16,7 @@ public class GameConfigService : BaseDataStorageImpl<GameConfigBean>
     /// <returns></returns>
     public GameConfigBean QueryData()
     {
-       return BaseLoadData(mSaveFileName);
+        return BaseLoadData(saveFileName);
     }
 
     /// <summary>
@@ -25,6 +25,6 @@ public class GameConfigService : BaseDataStorageImpl<GameConfigBean>
     /// <param name="gameConfig"></param>
     public void UpdateData(GameConfigBean gameConfig)
     {
-        BaseSaveData(mSaveFileName,gameConfig);
+        BaseSaveData(saveFileName, gameConfig);
     }
 }

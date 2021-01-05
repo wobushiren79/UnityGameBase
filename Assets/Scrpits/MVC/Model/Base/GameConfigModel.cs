@@ -3,11 +3,11 @@ using UnityEditor;
 
 public class GameConfigModel : BaseMVCModel
 {
-    private GameConfigService mGameConfigService;
+    protected GameConfigService serviceGameConfig;
 
     public override void InitData()
     {
-        mGameConfigService = new GameConfigService();
+        serviceGameConfig = new GameConfigService();
     }
 
     /// <summary>
@@ -16,7 +16,7 @@ public class GameConfigModel : BaseMVCModel
     /// <returns></returns>
     public GameConfigBean GetGameConfigData()
     {
-        GameConfigBean configBean = mGameConfigService.QueryData();
+        GameConfigBean configBean = serviceGameConfig.QueryData();
         if (configBean == null)
             configBean = new GameConfigBean();
         return configBean;
@@ -25,9 +25,9 @@ public class GameConfigModel : BaseMVCModel
     /// <summary>
     /// 保存游戏配置数据
     /// </summary>
-    /// <param name="configBean"></param>
-    public void SaveGameConfigData(GameConfigBean configBean)
+    /// <param name="data"></param>
+    public void SetGameConfigData(GameConfigBean data)
     {
-        mGameConfigService.UpdateData(configBean);
+        serviceGameConfig.UpdateData(data);
     }
 }
