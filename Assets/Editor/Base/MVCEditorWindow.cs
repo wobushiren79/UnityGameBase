@@ -11,11 +11,11 @@ public class MVCEditorWindow : EditorWindow
     protected readonly string scrpitsTemplatesPath = "/Editor/ScrpitsTemplates/";
 
     protected int saveType = 1;
-    protected string mvcBeanPath = "Assets/Editor";
-    protected string mvcViewPath = "Assets/Editor";
-    protected string mvcModelPath = "Assets/Editor";
-    protected string mvcControllerPath = "Assets/Editor";
-    protected string mvcServicePath = "Assets/Editor";
+    protected string mvcBeanPath = "Assets/Scrpits/Bean/MVC";
+    protected string mvcViewPath = "Assets/Scrpits/MVC/View";
+    protected string mvcModelPath = "Assets/Scrpits/MVC/Model";
+    protected string mvcControllerPath = "Assets/Scrpits/MVC/Controller";
+    protected string mvcServicePath = "Assets/Scrpits/MVC/Service";
 
     [MenuItem("MVC/创建")]
     static void CreateWindows()
@@ -36,15 +36,15 @@ public class MVCEditorWindow : EditorWindow
         EditorGUILayout.EndHorizontal();
 
         EditorUI.GUIText("Bean路径:");
-        mvcBeanPath = EditorUI.GUIEditorText(mvcBeanPath, 200);
+        mvcBeanPath = EditorUI.GUIEditorText(mvcBeanPath, 500);
         EditorUI.GUIText("View路径:");
-        mvcViewPath = EditorUI.GUIEditorText(mvcViewPath, 200);
+        mvcViewPath = EditorUI.GUIEditorText(mvcViewPath, 500);
         EditorUI.GUIText("Model路径:");
-        mvcModelPath = EditorUI.GUIEditorText(mvcModelPath, 200);
+        mvcModelPath = EditorUI.GUIEditorText(mvcModelPath, 500);
         EditorUI.GUIText("Controller路径:");
-        mvcControllerPath = EditorUI.GUIEditorText(mvcControllerPath, 200);
+        mvcControllerPath = EditorUI.GUIEditorText(mvcControllerPath, 500);
         EditorUI.GUIText("Service路径:");
-        mvcServicePath = EditorUI.GUIEditorText(mvcServicePath, 200);
+        mvcServicePath = EditorUI.GUIEditorText(mvcServicePath, 500);
 
         if (EditorUI.GUIButton("创建"))
         {
