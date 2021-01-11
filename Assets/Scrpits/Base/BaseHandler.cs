@@ -6,6 +6,10 @@ public class BaseHandler<T,M> : BaseSingletonMonoBehaviour<T>
     where T : BaseMonoBehaviour
 {
     private M mManager;
+    protected virtual void Awake()
+    {
+
+    }
 
     public M manager
     {

@@ -114,4 +114,37 @@ public class AssetLoadUtil
         if (obj != null && callBack != null)
             callBack.LoadSuccess(obj);
     }
+
+    /// <summary>
+    /// 异步加载aaset资源
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="assetPath"></param>
+    /// <param name="objName"></param>
+    /// <param name="callBackSuccess"></param>
+    /// <param name="callBackFail"></param>
+    /// <returns></returns>
+    public static IEnumerator AsyncLoadAsset<T>(string assetPath, string objName, System.Action<T> callBackSuccess, System.Action<string> callBackFail = null) where T : Object
+    {
+        AssetBundleCreateRequest assetRequest = AssetBundle.LoadFromFileAsync(assetPath);
+        yield return assetRequest;
+        if (assetRequest == null)
+        {
+            callBackFail?.Invoke("加载失败：" + assetPath + "路径不存在");
+        }
+        else
+        {
+            AssetBundleRequest objRequest = assetRequest.assetBundle.LoadAssetAsync<T>(objName);
+            yield return objRequest;
+            if (objRequest == null)
+            {
+                callBackFail?.Invoke("加载失败：" + assetPath + "中没有名字为" + objName + "的资源");
+            }
+            else
+            {
+                T asset = objRequest.asset as T;
+                callBackSuccess?.Invoke(asset);
+            }
+        }
+    }
 }
