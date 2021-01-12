@@ -10,7 +10,7 @@ public class AssetBundlesEditor : Editor
     {
 
         //根据BuildSetting里面所激活的平台进行打包 设置过AssetBundleName的都会进行打包
-        string dir = "Assets/AssetBundles";
+        string dir = "Assets/StreamingAssets";
         if (Directory.Exists(dir) == false)
         {
             Directory.CreateDirectory(dir);
