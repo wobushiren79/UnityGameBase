@@ -26,11 +26,6 @@ public class DialogView : BaseMonoBehaviour
 
     protected bool isSubmitDestroy = true;
 
-    public virtual void Awake()
-    {
-        AutoLinkManager();
-    }
-
     public virtual void Start()
     {
         InitData();
