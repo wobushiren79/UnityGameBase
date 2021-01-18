@@ -28,4 +28,9 @@ public class Vector3Bean
         this.y = y;
         this.z =z;
     }
+
+    public Vector3 GetVector3()
+    {
+        return TypeConversionUtil.Vector3BeanToVector3(this);
+    }
 }
