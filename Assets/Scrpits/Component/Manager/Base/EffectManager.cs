@@ -11,7 +11,7 @@ public class EffectManager : BaseManager
         GameObject objModel = null;
         if (listEffect.TryGetValue(name, out objModel))
         {
-
+            
         }
         else
         {
