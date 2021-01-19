@@ -3,33 +3,95 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine.U2D;
+using RotaryHeart.Lib.SerializableDictionary;
+
 public class BaseManager : BaseMonoBehaviour
 {
-
-    /// <summary>
-    /// 获取OBJ模型
-    /// </summary>
-    /// <param name="listObjModel"></param>
-    /// <param name="assetBundlePath"></param>
-    /// <param name="objName"></param>
-    /// <returns></returns>
-    public GameObject GetGameObjectModel(Dictionary<string, GameObject> listObjModel, string assetBundlePath, string objName)
+    protected T GetModel<T>(Dictionary<string, T> listModel, string assetBundlePath, string name) where T : Object
     {
-        if (listObjModel.TryGetValue(objName, out GameObject valueObj))
+        if (name == null)
+            return null;
+        if (listModel.TryGetValue(name, out T value))
         {
-            return valueObj;
+            return value;
         }
-        GameObject objModel = LoadAssetUtil.SyncLoadAsset<GameObject>(assetBundlePath, objName);
-        if (objModel != null)
+
+        T anim = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
+        if (anim != null)
         {
-            listObjModel.Add(objName, objModel);
-            return objModel;
+            listModel.Add(name, anim);
         }
+        return anim;
+    }
+    protected T GetModel<T>(SerializableDictionaryBase<string, T> listModel, string assetBundlePath, string name) where T : Object
+    {
+        if (name == null)
+            return null;
+        if (listModel.TryGetValue(name, out T value))
+        {
+            return value;
+        }
+
+        T anim = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
+        if (anim != null)
+        {
+            listModel.Add(name, anim);
+        }
+        return anim;
+    }
+
+    protected Sprite GetSpriteByName(IconBeanDictionary dicIcon, ref SpriteAtlas spriteAtlas, string atlasName, string assetBundlePath, string name)
+    {
+        if (name == null)
+            return null;
+        //从字典获取sprite
+        if (dicIcon.TryGetValue(name, out Sprite value))
+        {
+            return value;
+        }
+        //如果字典没有 尝试从atlas获取sprite
+        if (spriteAtlas != null)
+        {
+            Sprite itemSprite = GetSpriteByName(name, spriteAtlas);
+            if (itemSprite != null)
+                dicIcon.Add(name, itemSprite);
+            return itemSprite;
+        }
+        //如果没有atlas 先加载atlas
+        spriteAtlas = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>(assetBundlePath, atlasName);
+        //加载成功后在读取一次
+        if (spriteAtlas != null)
+            return GetSpriteByName(dicIcon, ref spriteAtlas, atlasName, assetBundlePath, name);
+        return null;
+    }
+    protected Sprite GetSpriteByName(Dictionary<string, Sprite> dicIcon, ref SpriteAtlas spriteAtlas, string atlasName, string assetBundlePath, string name)
+    {
+        if (name == null)
+            return null;
+        //从字典获取sprite
+        if (dicIcon.TryGetValue(name, out Sprite value))
+        {
+            return value;
+        }
+        //如果字典没有 尝试从atlas获取sprite
+        if (spriteAtlas != null)
+        {
+            Sprite itemSprite = GetSpriteByName(name, spriteAtlas);
+            if (itemSprite != null)
+                dicIcon.Add(name, itemSprite);
+            return itemSprite;
+        }
+        //如果没有atlas 先加载atlas
+        spriteAtlas = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>(assetBundlePath, atlasName);
+        //加载成功后在读取一次
+        if (spriteAtlas != null)
+            return GetSpriteByName(dicIcon, ref spriteAtlas, atlasName, assetBundlePath, name);
         return null;
     }
 
+
     /// <summary>
-    /// 根据名字获取音频
+    /// 根据名字获取
     /// </summary>
     /// <param name="name"></param>
     /// <param name="map"></param>
