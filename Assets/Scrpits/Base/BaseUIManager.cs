@@ -15,7 +15,7 @@ public class BaseUIManager : BaseManager
     /// <returns></returns>
     public BaseUIComponent GetOpenUI()
     {
-        for (int i=0;i< uiList.Count;i++)
+        for (int i = 0; i < uiList.Count; i++)
         {
             BaseUIComponent itemUI = uiList[i];
             if (itemUI.gameObject.activeSelf)
@@ -98,11 +98,11 @@ public class BaseUIManager : BaseManager
     /// 通过UI的名字开启UI
     /// </summary>
     /// <param name="uiName"></param>
-    public BaseUIComponent OpenUIByName(string uiName)
+    public T OpenUIByName<T>(string uiName) where T : BaseUIComponent
     {
         BaseUIComponent uiComponent = null;
         if (CheckUtil.StringIsNull(uiName))
-            return uiComponent;
+            return uiComponent as T;
         bool hasData = false;
         for (int i = 0; i < uiList.Count; i++)
         {
@@ -126,20 +126,20 @@ public class BaseUIManager : BaseManager
             }
             else
             {
-                LogUtil.LogError("没有找到指定UI："+ "ui/ui " + uiName);
+                LogUtil.LogError("没有找到指定UI：" + "ui/ui " + uiName);
             }
         }
-        return uiComponent;
+        return uiComponent as T;
     }
 
     /// <summary>
     /// 开启UI
     /// </summary>
     /// <param name="uiEnum"></param>
-    public void OpenUI(UIEnum uiEnum)
+    public T OpenUI<T>(UIEnum uiEnum) where T : BaseUIComponent
     {
         string uiName = EnumUtil.GetEnumName(uiEnum);
-        OpenUIByName(uiName);
+        return OpenUIByName<T>(uiName);
     }
 
 
@@ -178,7 +178,7 @@ public class BaseUIManager : BaseManager
     /// 通过UI的名字开启UI并关闭其他UI
     /// </summary>
     /// <param name="uiName"></param>
-    public BaseUIComponent OpenUIAndCloseOtherByName(string uiName)
+    public T OpenUIAndCloseOtherByName<T>(string uiName) where T : BaseUIComponent
     {
         if (uiList == null || CheckUtil.StringIsNull(uiName))
             return null;
@@ -192,12 +192,12 @@ public class BaseUIManager : BaseManager
                     itemUI.CloseUI();
             }
         }
-        return OpenUIByName(uiName);
+        return OpenUIByName<T>(uiName);
     }
 
-    public BaseUIComponent OpenUIAndCloseOther(UIEnum ui)
+    public T OpenUIAndCloseOther<T>(UIEnum ui) where T : BaseUIComponent
     {
-       return OpenUIAndCloseOtherByName(EnumUtil.GetEnumName(ui));
+        return OpenUIAndCloseOtherByName<T>(EnumUtil.GetEnumName(ui));
     }
 
     /// <summary>
