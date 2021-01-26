@@ -48,7 +48,7 @@ public class BaseUIManager : BaseManager
     /// </summary>
     /// <param name="uiName"></param>
     /// <returns></returns>
-    public BaseUIComponent GetUIByName(string uiName)
+    public T GetUIByName<T>(string uiName) where T : BaseUIComponent
     {
         if (uiList == null || CheckUtil.StringIsNull(uiName))
             return null;
@@ -57,7 +57,7 @@ public class BaseUIManager : BaseManager
             BaseUIComponent itemUI = uiList[i];
             if (itemUI.name.Contains(uiName))
             {
-                return itemUI;
+                return itemUI as T;
             }
         }
         return null;
@@ -68,9 +68,9 @@ public class BaseUIManager : BaseManager
     /// </summary>
     /// <param name="uiEnum"></param>
     /// <returns></returns>
-    public BaseUIComponent GetUI(UIEnum uiEnum)
+    public T GetUI<T>(UIEnum uiEnum) where T : BaseUIComponent
     {
-        return GetUIByName(EnumUtil.GetEnumName(uiEnum));
+        return GetUIByName<T>(EnumUtil.GetEnumName(uiEnum));
     }
 
     /// <summary>
