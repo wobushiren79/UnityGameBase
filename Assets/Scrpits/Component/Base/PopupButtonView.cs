@@ -8,10 +8,6 @@ public abstract class PopupButtonView<T>  : BaseMonoBehaviour, IPointerEnterHand
     protected T popupShow;
     private Button mThisButton;
     protected bool isActive = true;
-    public virtual void Awake()
-    {
-        popupShow = FindInChildren<T>(ImportantTypeEnum.Popup);
-    }
 
     private void Start()
     {
