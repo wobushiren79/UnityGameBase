@@ -46,6 +46,12 @@ public class BaseMonoBehaviour : MonoBehaviour
     //}
 
 
+    /// <summary>
+    /// 查找数据
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="importantType"></param>
+    /// <returns></returns>
     public T Find<T>(string name)
     {
         GameObject objFind = GameObject.Find(name);
@@ -71,7 +77,6 @@ public class BaseMonoBehaviour : MonoBehaviour
             return objFind.GetComponent(type);
         }
     }
-
     public T FindInChildren<T>(string name)
     {
         GameObject objFind = GameObject.Find(name);
@@ -90,11 +95,21 @@ public class BaseMonoBehaviour : MonoBehaviour
             return default;
         }
     }
+
     public T FindWithTag<T>(string tag)
     {
-        GameObject obj = GameObject.FindGameObjectWithTag(tag);
-        if (obj)
-            return obj.GetComponent<T>();
+        GameObject[] objArray = GameObject.FindGameObjectsWithTag(tag);
+        if (CheckUtil.ArrayIsNull(objArray))
+        {
+            return default(T);
+        }
+        for (int i = 0; i < objArray.Length; i++)
+        {
+            GameObject itemObj = objArray[i];
+            T data = itemObj.GetComponent<T>();
+            if (data != null)
+                return data;
+        }
         return default(T);
     }
 
@@ -102,6 +117,10 @@ public class BaseMonoBehaviour : MonoBehaviour
     {
         List<T> listData = new List<T>();
         GameObject[] objArray = GameObject.FindGameObjectsWithTag(tag);
+        if (CheckUtil.ArrayIsNull(objArray))
+        {
+            return listData;
+        }
         for (int i = 0; i < objArray.Length; i++)
         {
             GameObject itemObj = objArray[i];
