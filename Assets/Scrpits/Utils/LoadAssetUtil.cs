@@ -8,6 +8,7 @@ public class LoadAssetUtil
 {
     public static readonly string PathURL = Application.streamingAssetsPath + "/";
 
+#if UNITY_EDITOR
     /// <summary>
     /// 加载资源-editor可用
     /// </summary>
@@ -18,6 +19,7 @@ public class LoadAssetUtil
     {
         return AssetDatabase.LoadAssetAtPath(path, typeof(T)) as T;
     }
+#endif
 
     /// <summary>
     /// 同步-加载asset资源
