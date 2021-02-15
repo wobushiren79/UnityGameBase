@@ -9,27 +9,35 @@ public class BaseManager : BaseMonoBehaviour
 {
     protected T GetModel<T>(string assetBundlePath, string name) where T : Object
     {
-        if (name == null)
-            return null;
-        T model = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
-        return model;
+        return GetModel<T>(assetBundlePath, name, null);
     }
-    protected T GetModel<T>(Dictionary<string, T> listModel, string assetBundlePath, string name) where T : Object
+    protected T GetModel<T>(string assetBundlePath, string name, string remarkResourcesPath) where T : Object
     {
         if (name == null)
             return null;
-        if (listModel.TryGetValue(name, out T value))
+        T model = null;
+#if UNITY_EDITOR
+        //编辑器模式下直接加载资源
+        if (!CheckUtil.StringIsNull(remarkResourcesPath))
         {
-            return value;
+            model = LoadAssetUtil.LoadAssetAtPathForEditor<T>(remarkResourcesPath);
         }
-        T model = GetModel<T>(assetBundlePath, name);
-        if (model != null)
+        else
         {
-            listModel.Add(name, model);
+            model = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
         }
+#else
+        model = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
+#endif
         return model;
     }
-    protected T GetModel<T>(SerializableDictionaryBase<string, T> listModel, string assetBundlePath, string name) where T : Object
+
+    protected T GetModel<T>(Dictionary<string, T> listModel, string assetBundlePath, string name) where T : Object
+    {
+        return GetModel<T>(listModel, assetBundlePath, name, null);
+    }
+
+    protected T GetModel<T>(Dictionary<string, T> listModel, string assetBundlePath, string name, string remarkResourcesPath) where T : Object
     {
         if (name == null)
             return null;
@@ -38,7 +46,56 @@ public class BaseManager : BaseMonoBehaviour
             return value;
         }
 
-        T model = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
+        T model = null;
+#if UNITY_EDITOR
+        //编辑器模式下直接加载资源
+        if (!CheckUtil.StringIsNull(remarkResourcesPath))
+        {
+            model = LoadAssetUtil.LoadAssetAtPathForEditor<T>(remarkResourcesPath);
+        }
+        else
+        {
+            model = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
+        }
+#else
+        model = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
+#endif
+        if (model != null)
+        {
+            listModel.Add(name, model);
+        }
+        return model;
+    }
+
+    protected T GetModel<T>(SerializableDictionaryBase<string, T> listModel, string assetBundlePath, string name) where T : Object
+    {
+        return GetModel<T>(listModel, assetBundlePath, name, null);
+    }
+
+    protected T GetModel<T>(SerializableDictionaryBase<string, T> listModel, string assetBundlePath, string name, string remarkResourcesPath) where T : Object
+    {
+        if (name == null)
+            return null;
+        if (listModel.TryGetValue(name, out T value))
+        {
+            return value;
+        }
+
+        T model = null;
+#if UNITY_EDITOR
+        //编辑器模式下直接加载资源
+        if (!CheckUtil.StringIsNull(remarkResourcesPath))
+        {
+            model = LoadAssetUtil.LoadAssetAtPathForEditor<T>(remarkResourcesPath);
+        }
+        else
+        {
+            model = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
+        }
+#else
+        model = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath, name);
+#endif
+
         if (model != null)
         {
             listModel.Add(name, model);
@@ -48,29 +105,10 @@ public class BaseManager : BaseMonoBehaviour
 
     protected Sprite GetSpriteByName(IconBeanDictionary dicIcon, ref SpriteAtlas spriteAtlas, string atlasName, string assetBundlePath, string name)
     {
-        if (name == null)
-            return null;
-        //从字典获取sprite
-        if (dicIcon.TryGetValue(name, out Sprite value))
-        {
-            return value;
-        }
-        //如果字典没有 尝试从atlas获取sprite
-        if (spriteAtlas != null)
-        {
-            Sprite itemSprite = GetSpriteByName(name, spriteAtlas);
-            if (itemSprite != null)
-                dicIcon.Add(name, itemSprite);
-            return itemSprite;
-        }
-        //如果没有atlas 先加载atlas
-        spriteAtlas = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>(assetBundlePath, atlasName);
-        //加载成功后在读取一次
-        if (spriteAtlas != null)
-            return GetSpriteByName(dicIcon, ref spriteAtlas, atlasName, assetBundlePath, name);
-        return null;
+        return GetSpriteByName(dicIcon, ref spriteAtlas, atlasName, assetBundlePath, name, null);
     }
-    protected Sprite GetSpriteByName(Dictionary<string, Sprite> dicIcon, ref SpriteAtlas spriteAtlas, string atlasName, string assetBundlePath, string name)
+
+    protected Sprite GetSpriteByName(IconBeanDictionary dicIcon, ref SpriteAtlas spriteAtlas, string atlasName, string assetBundlePath, string name, string remarkResourcesPath)
     {
         if (name == null)
             return null;
@@ -87,14 +125,72 @@ public class BaseManager : BaseMonoBehaviour
                 dicIcon.Add(name, itemSprite);
             return itemSprite;
         }
+#if UNITY_EDITOR
+        //编辑器模式下直接加载资源
+        if (!CheckUtil.StringIsNull(remarkResourcesPath))
+        {
+            spriteAtlas = LoadAssetUtil.LoadAssetAtPathForEditor<SpriteAtlas>(remarkResourcesPath);
+        }
+        else
+        {
+            //如果没有atlas 先加载atlas
+            spriteAtlas = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>(assetBundlePath, atlasName);
+        }
+#else
         //如果没有atlas 先加载atlas
         spriteAtlas = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>(assetBundlePath, atlasName);
+#endif
+
         //加载成功后在读取一次
         if (spriteAtlas != null)
-            return GetSpriteByName(dicIcon, ref spriteAtlas, atlasName, assetBundlePath, name);
+            return GetSpriteByName(dicIcon, ref spriteAtlas, atlasName, assetBundlePath, name, remarkResourcesPath);
         return null;
     }
 
+    protected Sprite GetSpriteByName(Dictionary<string, Sprite> dicIcon, ref SpriteAtlas spriteAtlas, string atlasName, string assetBundlePath, string name)
+    {
+        return GetSpriteByName(dicIcon, ref spriteAtlas, atlasName, assetBundlePath, name, null);
+    }
+
+    protected Sprite GetSpriteByName(Dictionary<string, Sprite> dicIcon, ref SpriteAtlas spriteAtlas, string atlasName, string assetBundlePath, string name, string remarkResourcesPath)
+    {
+        if (name == null)
+            return null;
+        //从字典获取sprite
+        if (dicIcon.TryGetValue(name, out Sprite value))
+        {
+            return value;
+        }
+        //如果字典没有 尝试从atlas获取sprite
+        if (spriteAtlas != null)
+        {
+            Sprite itemSprite = GetSpriteByName(name, spriteAtlas);
+            if (itemSprite != null)
+                dicIcon.Add(name, itemSprite);
+            return itemSprite;
+        }
+#if UNITY_EDITOR
+        //编辑器模式下直接加载资源
+        if (!CheckUtil.StringIsNull(remarkResourcesPath))
+        {
+            spriteAtlas = LoadAssetUtil.LoadAssetAtPathForEditor<SpriteAtlas>(remarkResourcesPath);
+        }
+        else
+        {
+            //如果没有atlas 先加载atlas
+            spriteAtlas = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>(assetBundlePath, atlasName);
+        }
+#else
+        //如果没有atlas 先加载atlas
+        spriteAtlas = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>(assetBundlePath, atlasName);
+#endif
+        //加载成功后在读取一次
+        if (spriteAtlas != null)
+        {
+            return GetSpriteByName(dicIcon, ref spriteAtlas, atlasName, assetBundlePath, name, remarkResourcesPath);
+        }
+        return null;
+    }
 
     /// <summary>
     /// 根据名字获取
@@ -118,7 +214,7 @@ public class BaseManager : BaseMonoBehaviour
     /// <param name="name"></param>
     /// <param name="map"></param>
     /// <returns></returns>
-    public virtual AudioClip GetAudioClipByName(string name,AudioBeanDictionary map)
+    public virtual AudioClip GetAudioClipByName(string name, AudioBeanDictionary map)
     {
         if (name == null)
             return null;
@@ -181,7 +277,8 @@ public class BaseManager : BaseMonoBehaviour
     /// <param name="positon"></param>
     /// <param name="listdata"></param>
     /// <returns></returns>
-    public virtual Sprite GetSpriteByPosition(int position, List<IconBean> listdata) {
+    public virtual Sprite GetSpriteByPosition(int position, List<IconBean> listdata)
+    {
         IconBean iconData = BeanUtil.GetIconBeanByPosition(position, listdata);
         if (iconData == null)
             return null;
@@ -193,19 +290,19 @@ public class BaseManager : BaseMonoBehaviour
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public virtual Sprite GetSpriteByName(string name,IconBeanDictionary map)
+    public virtual Sprite GetSpriteByName(string name, IconBeanDictionary map)
     {
         if (name == null)
             return null;
         if (map.TryGetValue(name, out Sprite spIcon))
             return spIcon;
         else
-            return null;  
+            return null;
     }
 
     public virtual Sprite GetSpriteByName(string name, SpriteAtlas spriteAtlas)
     {
-       return spriteAtlas.GetSprite(name);
+        return spriteAtlas.GetSprite(name);
     }
 
     /// <summary>
@@ -215,7 +312,7 @@ public class BaseManager : BaseMonoBehaviour
     /// <param name="name"></param>
     /// <param name="map"></param>
     /// <returns></returns>
-    public virtual T GetDataById<T>(long name, Dictionary<long,T> map) where T : class
+    public virtual T GetDataById<T>(long name, Dictionary<long, T> map) where T : class
     {
         if (map == null)
             return null;
