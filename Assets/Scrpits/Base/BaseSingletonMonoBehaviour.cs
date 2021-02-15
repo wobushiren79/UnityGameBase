@@ -26,7 +26,7 @@ public class BaseSingletonMonoBehaviour<T> : BaseMonoBehaviour where T : BaseMon
                                 {
                                     instance = instances[i];
 #if !UNITY_EDITOR
-                            DontDestroyOnLoad(objInstance);
+                            DontDestroyOnLoad(objItem);
 #endif
                                 }
                                 else
