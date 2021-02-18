@@ -14,7 +14,6 @@ public class GameCommonInfo
     public static ScenesChangeBean ScenesChangeData = new ScenesChangeBean();
 
     private static GameConfigController mGameConfigController;
-    private static UITextController mUITextController;
 
 
     public static void ClearData()
@@ -27,7 +26,6 @@ public class GameCommonInfo
     {
         GameConfig = new GameConfigBean();
         mGameConfigController = new GameConfigController(null, new GameConfigCallBack());
-        mUITextController = new UITextController(null, null);
         mGameConfigController.GetGameConfigData();
     }
 
@@ -38,12 +36,6 @@ public class GameCommonInfo
     {
         Random.InitState(RandomSeed);
     }
-
-    public static string GetUITextById(long id)
-    {
-        return mUITextController.GetTextById(id);
-    }
-
 
     public static void SaveGameConfig()
     {
@@ -60,7 +52,6 @@ public class GameCommonInfo
         public void GetGameConfigSuccess(GameConfigBean configBean)
         {
             GameConfig = configBean;
-            mUITextController.RefreshData();
         }
 
         public void SetGameConfigFail()
