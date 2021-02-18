@@ -9,8 +9,9 @@ public class UITextService
 
     public UITextService()
     {
+        GameConfigBean gameConfig = GameDataHandler.Instance.manager.GetGameConfig();
         mTableName = "ui_text";
-        mLeftTableName = "ui_text_details_" + GameCommonInfo.GameConfig.language;
+        mLeftTableName = "ui_text_details_" + gameConfig.language;
     }
 
     /// <summary>

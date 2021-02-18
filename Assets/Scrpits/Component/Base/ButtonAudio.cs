@@ -19,9 +19,9 @@ public class ButtonAudio : BaseMonoBehaviour
     {
         if (CheckUtil.ListIsNull(clickClip))
             return;
-        volume = GameCommonInfo.GameConfig.soundVolume;
+        GameConfigBean gameConfig = GameDataHandler.Instance.manager.GetGameConfig();
         AudioClip audioClip = RandomUtil.GetRandomDataByList(clickClip);
-        AudioSource.PlayClipAtPoint(audioClip, button.transform.position, volume);
+        AudioSource.PlayClipAtPoint(audioClip, button.transform.position, gameConfig.soundVolume);
     }
 
 }

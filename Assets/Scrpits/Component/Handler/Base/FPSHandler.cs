@@ -9,7 +9,8 @@ public class FPSHandler : BaseHandler<FPSHandler, BaseManager>
     {
         base.Awake();
         //Screen.SetResolution(1280, 800, false);	
-        SetData(GameCommonInfo.GameConfig.statusForFrames, GameCommonInfo.GameConfig.frames);
+        GameConfigBean gameConfig = GameDataHandler.Instance.manager.GetGameConfig();
+        SetData(gameConfig.statusForFrames, gameConfig.frames);
     }
 
     public void SetData(bool isLock, int fps)
