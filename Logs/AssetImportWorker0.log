@@ -80,3 +80,4 @@ Received Import Request.
 Start importing Assets/Editor/ScrpitsTemplates/MVC_Controller.txt using Guid(6a95ae4698ff3b0439dffe98ea7ee8ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5117dd6b6e929cfdeb036a766609c50') in 0.024177 seconds
   Import took 0.028875 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
