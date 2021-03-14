@@ -13,10 +13,11 @@ public class EffectHandler : BaseHandler<EffectHandler, EffectManager>
     /// <param name="effectPosition"></param>
     public GameObject PlayEffect(GameObject objContainer, string name, Vector3 effectPosition, float delayTime)
     {
-        GameObject objEffect = manager.CreateEffect(objContainer,name);
+        GameObject objEffect = manager.CreateEffect(objContainer, name);
         if (objEffect == null)
             return objEffect;
         objEffect.transform.position = effectPosition;
+
         ParticleSystem[] listParticleSystem = objEffect.GetComponentsInChildren<ParticleSystem>();
         for (int i = 0; i < listParticleSystem.Length; i++)
         {
