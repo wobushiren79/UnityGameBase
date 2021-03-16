@@ -143,9 +143,13 @@ public class EditorUI
     /// <param name="picName"></param>
     public static void GUIPic(string picPath, string picName)
     {
+        GUIPic(picPath, picName, 64, 64);
+    }
+    public static void GUIPic(string picPath, string picName, int width, int height)
+    {
         Texture2D iconTex = EditorGUIUtility.FindTexture(picPath + picName + ".png");
         if (iconTex)
-            GUILayout.Label(iconTex, GUILayout.Width(64), GUILayout.Height(64));
+            GUILayout.Label(iconTex, GUILayout.Width(width), GUILayout.Height(height));
     }
 
     /// <summary>
