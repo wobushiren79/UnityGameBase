@@ -40,4 +40,18 @@ public class RayUtil
     {
         return Physics.OverlapSphere(centerPosition, radius, layer);
     }
+
+
+    /// <summary>
+    /// 射线
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="direction"></param>
+    /// <param name="maxDistance"></param>
+    /// <param name="layerMask"></param>
+    /// <returns></returns>
+    public static RaycastHit[] RayToCastAll(Vector3 origin, Vector3 direction, float maxDistance, int layerMask)
+    {
+        return Physics.RaycastAll(origin, direction, maxDistance, layerMask);
+    }
 }
