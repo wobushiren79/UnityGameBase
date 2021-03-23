@@ -67,4 +67,8 @@ public class RayUtil
     {
         return Physics.Raycast(origin, direction, out hit, maxDistance, layerMask);
     }
+    public static bool RayToCast(Vector3 origin, Vector3 direction, float maxDistance, int layerMask)
+    {
+        return Physics.Raycast(origin, direction, maxDistance, layerMask);
+    }
 }
