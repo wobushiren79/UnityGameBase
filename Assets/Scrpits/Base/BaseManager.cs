@@ -25,7 +25,7 @@ public class BaseManager : BaseMonoBehaviour
             models = LoadAssetUtil.SyncLoadAllAsset<T>(assetBundlePath);
         }
 #else
-        model = LoadAssetUtil.SyncLoadAsset<T>(assetBundlePath);
+            models = LoadAssetUtil.SyncLoadAllAsset<T>(assetBundlePath);
 #endif
         return models;
     }
