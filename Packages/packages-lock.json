@@ -145,13 +145,6 @@
       },
       "url": "https://packages.unity.cn"
     },
-    "jillejr.newtonsoft.json-for-unity": {
-      "version": "13.0.102",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity"
-    },
     "nuget.mono-cecil": {
       "version": "0.1.6-preview",
       "depth": 1,
