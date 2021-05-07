@@ -6,7 +6,7 @@ using UnityEditor;
 
 public class LoadAssetUtil
 {
-    public static readonly string PathURL = Application.streamingAssetsPath + "/";
+    public static readonly string PathURL = Application.streamingAssetsPath + "/AssetBundles/";
 
 #if UNITY_EDITOR
     /// <summary>
@@ -20,7 +20,25 @@ public class LoadAssetUtil
         return AssetDatabase.LoadAssetAtPath(path, typeof(T)) as T;
     }
 #endif
-
+#if UNITY_EDITOR
+    /// <summary>
+    /// 加载资源-editor可用
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public static List<T> LoadAllAssetAtPathForEditor<T>(string path) where T : Object
+    {
+        List<T> listData = new List<T>();
+        Object[] arrayData = AssetDatabase.LoadAllAssetsAtPath(path);
+        for (int i = 0; i < arrayData.Length; i++)
+        {
+            T itemData = arrayData[i] as T;
+            listData.Add(itemData);
+        }
+        return listData;
+    }
+#endif
     /// <summary>
     /// 同步-加载asset资源
     /// </summary>
