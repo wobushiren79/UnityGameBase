@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using System.IO;
 
 public class LoadAssetUtil
 {
@@ -20,6 +21,7 @@ public class LoadAssetUtil
         return AssetDatabase.LoadAssetAtPath(path, typeof(T)) as T;
     }
 #endif
+
 #if UNITY_EDITOR
     /// <summary>
     /// 加载资源-editor可用
@@ -30,15 +32,21 @@ public class LoadAssetUtil
     public static List<T> LoadAllAssetAtPathForEditor<T>(string path) where T : Object
     {
         List<T> listData = new List<T>();
-        Object[] arrayData = AssetDatabase.LoadAllAssetsAtPath(path);
-        for (int i = 0; i < arrayData.Length; i++)
+        DirectoryInfo direction = new DirectoryInfo(path);
+        FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+        for (int i = 0; i < files.Length; i++)
         {
-            T itemData = arrayData[i] as T;
+            if (files[i].Name.EndsWith(".meta"))
+            {
+                continue;
+            }
+            T itemData = LoadAssetAtPathForEditor<T>(path + "/" + files[i].Name);
             listData.Add(itemData);
         }
         return listData;
     }
 #endif
+
     /// <summary>
     /// 同步-加载asset资源
     /// </summary>
