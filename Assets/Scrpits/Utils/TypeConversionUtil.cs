@@ -369,7 +369,7 @@ public class TypeConversionUtil
         Dictionary<long, T> map = new Dictionary<long, T>();
         if (listData == null)
             return map;
-        for (int i = 0; i < listData.Count;)
+        for (int i = 0; i < listData.Count; i++)
         {
             T itemData = listData[i];
             map.Add(itemData.id, itemData);
