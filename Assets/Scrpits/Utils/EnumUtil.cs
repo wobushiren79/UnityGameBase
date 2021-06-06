@@ -21,6 +21,23 @@ public class EnumUtil
     }
 
     /// <summary>
+    /// 获取枚举最大值
+    /// </summary>
+    /// <param name="enumType"></param>
+    /// <returns></returns>
+    public static int GetEnumMaxIndex<E>()
+    {
+        int maxIndex = int.MinValue;
+        Array EnumArray = Enum.GetValues(typeof(E));
+        foreach (int item in EnumArray)
+        {
+            if (item > maxIndex)
+                maxIndex = item;
+        }
+        return maxIndex;
+    }
+
+    /// <summary>
     /// 获取枚举第几项
     /// </summary>
     /// <typeparam name="E"></typeparam>
