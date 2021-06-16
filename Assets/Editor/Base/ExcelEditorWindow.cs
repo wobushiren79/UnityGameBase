@@ -156,10 +156,11 @@ public class ExcelEditorWindow : EditorWindow
                     string jsonData = JsonUtil.ToJsonByNet(lst);
                     File.WriteAllText(jsonPath, jsonData);
                 }
+                LogUtil.Log("转换完成");
             }
-            catch
+            catch (Exception e)
             {
-
+                LogUtil.LogError(e.ToString());
             }
             finally
             {
@@ -210,6 +211,7 @@ public class ExcelEditorWindow : EditorWindow
                     CreateEntity(workSheets[w]);
                 }
                 AssetDatabase.Refresh();
+                LogUtil.Log("生成完成");
             }
             catch
             {
