@@ -23,7 +23,8 @@ public class ExcelEditorWindow : EditorWindow
     {
         excelFolderPath = Application.dataPath + "/Data/Excel";
         entityFolderPath = Application.dataPath + "/Scrpits/Bean/MVC/Game";
-        jsonFolderPath = Application.streamingAssetsPath + "/JsonText";
+        //jsonFolderPath = Application.streamingAssetsPath + "/JsonText";
+        jsonFolderPath = Application.dataPath + "/Resources/JsonText";
     }
     private void OnGUI()
     {
@@ -148,7 +149,7 @@ public class ExcelEditorWindow : EditorWindow
                         lst.Add(o);
                     }
                     //写入json文件
-                    string jsonPath = $"{jsonFolderPath}/{sheet.Name}";
+                    string jsonPath = $"{jsonFolderPath}/{sheet.Name}.txt";
                     if (!File.Exists(jsonPath))
                     {
                         File.Create(jsonPath).Dispose();
