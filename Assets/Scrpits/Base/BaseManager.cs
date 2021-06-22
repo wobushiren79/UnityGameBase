@@ -125,6 +125,24 @@ public class BaseManager : BaseMonoBehaviour
         return model;
     }
 
+    protected T GetModelForResources<T>(Dictionary<string, T> listModel, string resPath) where T : Object
+    {
+        if (name == null)
+            return null;
+        if (listModel.TryGetValue(name, out T value))
+        {
+            return value;
+        }
+
+        T model = LoadResourcesUtil.SyncLoadData<T>(resPath);
+
+        if (model != null)
+        {
+            listModel.Add(name, model);
+        }
+        return model;
+    }
+
     protected Sprite GetSpriteByName(IconBeanDictionary dicIcon, ref SpriteAtlas spriteAtlas, string atlasName, string assetBundlePath, string name)
     {
         return GetSpriteByName(dicIcon, ref spriteAtlas, atlasName, assetBundlePath, name, null);
