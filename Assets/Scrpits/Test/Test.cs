@@ -2,48 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Test : BaseMonoBehaviour, ISheet1View
+public class Test : BaseMonoBehaviour
 {
 
-    public TestScriptableObject testScriptable;
-
-    public void GetSheet1Fail(string failMsg, Action action)
-    {
-    }
-
-    public void GetSheet1Success<T>(T data, Action<T> action)
-    {
-        action?.Invoke(data);
-    }
+    public AssetReference assetReference;
 
     private void OnGUI()
     {
-
         if (GUILayout.Button("输出"))
         {
-            LogUtil.Log("testScriptable:" + testScriptable.data);
         }
     }
 
     private void Start()
     {
-        Sheet1Controller sheet1Controller = new Sheet1Controller(this, this);
-        sheet1Controller.GetAllSheet1Data((listData) =>
-        {
-            for (int i = 0; i < listData.Count; i++)
-            {
-                LogUtil.Log("listData:" + listData[i].id + " " + listData[i].name);
-            }
-        });
+        //单纯加载
+        Addressables.LoadAssetAsync < GameObject >("Add").Completed+=data=> { LogUtil.Log("成功"); };
+        //实例化
+        //assetReference.InstantiateAsync().Completed += data => { LogUtil.Log("成功"); };
     }
 
-    public class TestData
-    {
 
-        public string data1;
-        public int data2;
-    }
 }

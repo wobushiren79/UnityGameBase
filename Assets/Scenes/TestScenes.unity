@@ -443,7 +443,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f86ef755432fc42beb635c70ec056b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testScriptable: {fileID: 11400000, guid: f3f6cc25f52076f478779db40f4f52dd, type: 2}
+  assetReference:
+    m_AssetGUID: a334c93e5bd4f63449ba79cff0c4111e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1 &1958435362
 GameObject:
   m_ObjectHideFlags: 0
