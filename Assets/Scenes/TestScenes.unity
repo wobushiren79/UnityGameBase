@@ -448,6 +448,8 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  labelReference:
+    m_LabelString: 
 --- !u!1 &1958435362
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,24 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Test_2
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
+  m_GroupName: Test_2
   m_Data:
     m_SerializedData: []
-  m_GUID: 2eda0f67e29dad5408d6b46bc689e98d
+  m_GUID: 58ebc052d2ad49244a4505d69803604b
   m_SerializeEntries:
-  - m_GUID: 4e0711b37c6fe8344a8fbc7b8eb67a7a
-    m_Address: Assets/AddressableAssetsData/DefaultObject.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: a334c93e5bd4f63449ba79cff0c4111e
-    m_Address: Assets/AddressableAssetsData/AddressableAssetSettings.asset
+  - m_GUID: e70dce9f0f9de6b41ab8f5b344c82df2
+    m_Address: Add
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a334c93e5bd4f63449ba79cff0c4111e, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 2a8f001e24de4e34e86998b0c94c7357, type: 2}
-    - {fileID: 11400000, guid: 301e59e9b92264548bc1eb82a0495da4, type: 2}
+    - {fileID: 11400000, guid: 5cfddb202cd83c9459fea1dcf36addfe, type: 2}
+    - {fileID: 11400000, guid: f155765ddd1e64d4eb0f03546d97a82a, type: 2}
