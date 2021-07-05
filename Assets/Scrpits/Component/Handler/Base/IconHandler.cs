@@ -17,6 +17,7 @@ public class IconHandler : BaseHandler<IconHandler,IconManager>
     public static void RequestAtlas(string tag, System.Action<SpriteAtlas> callback)
     {
         SpriteAtlas sa = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>("sprite/atlas", tag);
+        //SpriteAtlas sa = LoadResourcesUtil.AsyncLoadData<SpriteAtlas>("SpriteAtlas/" + tag);
         if (sa != null)
             callback?.Invoke(sa);
     }

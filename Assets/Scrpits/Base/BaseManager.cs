@@ -210,6 +210,7 @@ public class BaseManager : BaseMonoBehaviour
         {
             //如果没有atlas 先加载atlas
             spriteAtlas = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>(assetBundlePath, atlasName);
+            //spriteAtlas = LoadResourcesUtil.SyncLoadData<SpriteAtlas>(assetBundlePath+ atlasName);
         }
 #else
         //如果没有atlas 先加载atlas
@@ -254,6 +255,7 @@ public class BaseManager : BaseMonoBehaviour
         {
             //如果没有atlas 先加载atlas
             spriteAtlas = LoadAssetUtil.SyncLoadAsset<SpriteAtlas>(assetBundlePath, atlasName);
+            //spriteAtlas = LoadResourcesUtil.SyncLoadData<SpriteAtlas>(assetBundlePath+ atlasName);
         }
 #else
         //如果没有atlas 先加载atlas
